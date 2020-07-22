@@ -30,13 +30,18 @@ class ViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "open", style: .plain, target: self, action: #selector(openTapped))
 
+        let back = UIBarButtonItem(barButtonSystemItem: .rewind, target: webView, action: #selector(webView.goBack))
+        
+        let forward = UIBarButtonItem(barButtonSystemItem: .fastForward
+            , target: webView, action: #selector(webView.goForward))
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
 
         let progressBar = UIBarButtonItem(customView: progressView)
 
-        toolbarItems = [progressBar, spacer, refresh]
+        toolbarItems = [back,forward,spacer,progressBar, spacer, refresh]
         navigationController?.isToolbarHidden = false
 
 
@@ -90,7 +95,7 @@ extension ViewController: WKNavigationDelegate {
                     print("allowed")
                     decisionHandler(.allow)
                     return
-                } 
+                }
             }
         }
 

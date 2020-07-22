@@ -74,7 +74,27 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: WKNavigationDelegate {
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
+    }
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+
+        
+        
+        if let host = url?.host {
+            for website in webSites {
+                if host.contains(website) {
+                    print("allowed")
+                    decisionHandler(.allow)
+                    return
+                } 
+            }
+        }
+
+        decisionHandler(.cancel)
+        
     }
 }
